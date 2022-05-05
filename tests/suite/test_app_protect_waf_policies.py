@@ -403,6 +403,7 @@ class TestAppProtectWAFPolicyVS:
         log_loc = f"/var/log/messages"
         create_items_from_yaml(kube_apis, src_syslog_yaml, test_namespace)
         create_items_from_yaml(kube_apis, src_syslog_yaml_additional, test_namespace)
+        syslog_dst1 = f"syslog-svc.{test_namespace}"
         syslog_dst2 = f"syslog-svc-1.{test_namespace}"
         syslog_pods = kube_apis.v1.list_namespaced_pod(test_namespace, label_selector="app in (syslog, syslog-1)").items
         print(f"Create waf policy")
