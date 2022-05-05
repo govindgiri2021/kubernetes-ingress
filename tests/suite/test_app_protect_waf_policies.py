@@ -3,6 +3,7 @@ import pytest, json
 
 from settings import TEST_DATA, DEPLOYMENTS
 from suite.resources_utils import (
+    delete_items_from_yaml,
     wait_before_test,
     create_items_from_yaml,
     wait_before_test,
@@ -374,6 +375,7 @@ class TestAppProtectWAFPolicyVS:
             print(f"Security log not updated, retrying... #{retry}")
 
         delete_policy(kube_apis.custom_objects, "waf-policy", test_namespace)
+        delete_items_from_yaml(kube_apis, src_syslog_yaml, test_namespace)
         self.restore_default_vs(kube_apis, virtual_server_setup)
 
         assert_invalid_responses(response)
